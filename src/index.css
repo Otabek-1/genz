@@ -1,0 +1,31 @@
+@import "tailwindcss";
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-send-field{
+  box-shadow: 0px 5px 10px black;
+}
+
+.text-send-field input::placeholder{
+  color: gray;
+}
+
+.message-table::-webkit-scrollbar{
+  width: 0px;
+}
+
+.rate-1{
+  background: linear-gradient(30deg,  rgb(199, 169, 0) 0%,  gold 50%,  rgb(255, 232, 105) 100%);
+}
