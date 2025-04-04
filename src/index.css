@@ -26,6 +26,19 @@
   width: 0px;
 }
 
+.ratings::-webkit-scrollbar{
+  width: 0;
+}
+
 .rate-1{
   background: linear-gradient(30deg,  rgb(199, 169, 0) 0%,  gold 50%,  rgb(255, 232, 105) 100%);
 }
+
+.rate-2{
+  background: linear-gradient(30deg,  rgb(119, 119, 119) 0%, silver 50%,  rgb(217, 217, 217) 100%);
+}
+
+.rate-3{
+  background: linear-gradient(30deg,  #c36303 0%, #cd7f32 50%,  #ffaf5f 100%);
+}
+
