@@ -1,25 +1,41 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
 export default function Auth() {
-    const users = [
-        { id: 1, name: "Abduqodirov Ulug'bek", class: 10 },
-        { id: 2, name: "Aliyev Bekzod", class: 11 },
-        { id: 3, name: "Karimova Madina", class: 9 },
-        { id: 4, name: "Ismoilov Jasur", class: 9 },
-        // Boshqa foydalanuvchilarni qo'shing
-    ];
+    const [users, setUsers] = useState([]);
+    const nav= useNavigate(null);
+
+    useEffect(()=>{
+        axios.get("http://localhost:1234/users")
+        .then(res=>{
+            setUsers(res.data);
+        }).catch(err=>{
+            console.log(err);
+        })
+    },[])
 
     const [selectedUser, setSelectedUser] = useState(null);
 
     const options = users.map((user) => ({
         value: user.id,
-        label: user.name,
+        label: user.fullname,
     }));
 
     const handleChange = (selectedOption) => {
         setSelectedUser(selectedOption);
     };
+
+    const login = () => {
+        if (selectedUser) {
+            window.localStorage.setItem('id', selectedUser.value); // only save the user ID, not the whole object
+            nav("/");
+        } else {
+            console.log("Please select a user!");
+        }
+    };
+    
     return (
         <div className='w-full h-screen bg-slate-200 flex items-center justify-center'>
             <div className="enter-box w-1/3 h-1/2 bg-white rounded-xl shadow-2xl flex flex-col items-center py-3">
@@ -29,7 +45,7 @@ export default function Auth() {
                         <label htmlFor="school" className="text-gray-700">Maktabni tanlang:</label>
                         <select name="" id="" className='w-full border-2 rounded-xl border-gray-500 text-gray-700' required>
                             <option value="">Tanlang</option>
-                            <option value="halima_xudoyberdiyeva">Halima Xudoyberdiyeva nomidagi ijod maktabi</option>
+                            <option value="1">Halima Xudoyberdiyeva nomidagi ijod maktabi</option>
                         </select>
                     </div>
 
@@ -49,6 +65,7 @@ export default function Auth() {
                     <span className="text-gray-700 text-xl">Sinf: {users.filter((user) => user.id === selectedUser?.value)[0]?.class}</span>
 
                     <input
+                    onClick={login}
                         type="submit"
                         value="Kirish"
                         className="w-max px-10 py-2 m-auto rounded-lg cursor-pointer text-3xl font-semibold text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300"
